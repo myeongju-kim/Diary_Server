@@ -1,7 +1,9 @@
 package com.kingmj.api.common.dto;
 
 import com.kingmj.api.common.code.ErrorCode;
+import lombok.Getter;
 
+@Getter
 public class ServerResponse<T> {
   private String code;
   private String message;
