@@ -1,6 +1,6 @@
 package com.kingmj.api.account.service;
 
-import com.kingmj.api.common.code.ErrorCode;
+import com.kingmj.api.common.code.ServerCode;
 import com.kingmj.api.common.exception.UnauthorizedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -43,9 +43,9 @@ public class JwtService {
     try {
       Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
     } catch (ExpiredJwtException e){
-      throw new UnauthorizedException(ErrorCode.EXPIRE_TOKEN);
+      throw new UnauthorizedException(ServerCode.EXPIRE_TOKEN);
     } catch (Exception e){
-      throw new UnauthorizedException(ErrorCode.INVALID_TOKEN);
+      throw new UnauthorizedException(ServerCode.INVALID_TOKEN);
     }
   }
 }
