@@ -1,7 +1,6 @@
 package com.kingmj.api.account.service;
 
 import com.kingmj.api.common.code.ErrorCode;
-import com.kingmj.api.common.dto.ServerResponse;
 import com.kingmj.api.common.exception.UnauthorizedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
