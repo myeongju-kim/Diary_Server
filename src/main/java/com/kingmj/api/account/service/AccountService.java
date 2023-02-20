@@ -39,4 +39,12 @@ public class AccountService {
                     .build())
             .build();
   }
+  public ApiResponse<Void> check(String token){
+    jwtService.validateToken(token);
+    return ApiResponse.<Void>builder()
+            .code(ServerCode.CHECK_SUCCESS.getCode())
+            .message(ServerCode.CHECK_SUCCESS.getMessage())
+            .result(null)
+            .build();
+  }
 }
