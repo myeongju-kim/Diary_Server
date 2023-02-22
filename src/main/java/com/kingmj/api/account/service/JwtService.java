@@ -39,13 +39,4 @@ public class JwtService {
         .signWith(SignatureAlgorithm.HS256,secretKey)
         .compact();
   }
-  public void validateToken(String token){
-    try {
-      Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-    } catch (ExpiredJwtException e){
-      throw new UnauthorizedException(ServerCode.EXPIRE_TOKEN);
-    } catch (Exception e){
-      throw new UnauthorizedException(ServerCode.INVALID_TOKEN);
-    }
-  }
 }
