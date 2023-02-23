@@ -10,9 +10,15 @@ public class NoteResponse {
     public static class Load{
         private Long id;
         private String title;
-        private String content;
         private String date;
         private Integer weather;
         private Integer mode;
+    }
+    @Builder
+    @Getter
+    public static class Detail{
+        private String date;
+        private String title;
+        private String content;
     }
 }
