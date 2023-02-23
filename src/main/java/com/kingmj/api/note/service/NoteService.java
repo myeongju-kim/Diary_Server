@@ -47,8 +47,8 @@ public class NoteService {
         Page<Note> notes=noteRepository.findAll(pageable);
         for(Note note:notes){
             lists.add(NoteResponse.Load.builder()
+                            .id(note.getId())
                             .title(note.getTitle())
-                            .content(note.getContent())
                             .date(note.getDate()
                                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                             .weather(note.getWeather())
@@ -59,6 +59,19 @@ public class NoteService {
                 .code(ServerCode.LIST_SUCCESS.getCode())
                 .message(ServerCode.LIST_SUCCESS.getMessage())
                 .result(lists)
+                .build();
+    }
+    public ApiResponse<NoteResponse.Detail> getDetail(Long id){
+        Note note=noteRepository.findById(id).orElse(null);
+        return ApiResponse.<NoteResponse.Detail>builder()
+                .code(ServerCode.DETAIL_SUCCESS.getCode())
+                .message(ServerCode.DETAIL_SUCCESS.getMessage())
+                .result(NoteResponse.Detail.builder()
+                        .date(note.getDate()
+                                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                        .title(note.getTitle())
+                        .content(note.getContent())
+                        .build())
                 .build();
     }
 }

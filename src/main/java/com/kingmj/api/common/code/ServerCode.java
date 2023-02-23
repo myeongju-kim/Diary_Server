@@ -10,9 +10,10 @@ public enum ServerCode {
     LOGIN_SUCCESS("S000", "로그인을 성공했습니다."),
     CHECK_SUCCESS("S001", "인증에 성공했습니다."),
     POST_SUCCESS("S002", "글 등록을 성공했습니다."),
-    LIST_SUCCESS("S003", "글 출력을 성공했습니다."),
-    UPDATE_SUCCESS("S004", "글 수정을 성공했습니다."),
-    DELETE_SUCCESS("S005", "글 삭제를 성공했습니다."),
+    LIST_SUCCESS("S003", "모든 글 출력을 성공했습니다."),
+    DETAIL_SUCCESS("S004", "상세 내용 보기에 성공했습니다."),
+    UPDATE_SUCCESS("S005", "글 수정을 성공했습니다."),
+    DELETE_SUCCESS("S006", "글 삭제를 성공했습니다."),
 
     // FAIL CODE
     //HTTP Status : 401 (Unauthorized)

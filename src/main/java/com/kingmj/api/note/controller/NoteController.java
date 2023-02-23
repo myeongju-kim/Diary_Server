@@ -1,6 +1,5 @@
 package com.kingmj.api.note.controller;
 
-import com.kingmj.api.account.service.JwtService;
 import com.kingmj.api.common.dto.ApiResponse;
 import com.kingmj.api.note.dto.NoteRequest;
 import com.kingmj.api.note.dto.NoteResponse;
@@ -16,10 +15,8 @@ import java.util.List;
 @RequestMapping("/api/v1/note")
 public class NoteController {
     private final NoteService noteService;
-    private final JwtService jwtService;
-    public NoteController(NoteService noteService, JwtService jwtService){
+    public NoteController(NoteService noteService){
         this.noteService=noteService;
-        this.jwtService = jwtService;
     }
     @PostMapping("")
     @Auth
@@ -31,5 +28,10 @@ public class NoteController {
     public ResponseEntity<ApiResponse<List<NoteResponse.Load>>> getNote(@RequestParam(name="page") Integer page){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(noteService.getNote(page));
+    }
+    @GetMapping("{id}")
+    public ResponseEntity<ApiResponse<NoteResponse.Detail>> getDetail(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(noteService.getDetail(id));
     }
 }
