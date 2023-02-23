@@ -47,6 +47,7 @@ public class NoteService {
         Page<Note> notes=noteRepository.findAll(pageable);
         for(Note note:notes){
             lists.add(NoteResponse.Load.builder()
+                            .id(note.getId())
                             .title(note.getTitle())
                             .content(note.getContent())
                             .date(note.getDate()

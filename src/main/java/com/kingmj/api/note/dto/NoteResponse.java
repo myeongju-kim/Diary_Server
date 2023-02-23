@@ -8,6 +8,7 @@ public class NoteResponse {
     @Builder
     @Getter
     public static class Load{
+        private Long id;
         private String title;
         private String content;
         private String date;
