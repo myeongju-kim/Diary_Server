@@ -29,4 +29,9 @@ public class NoteController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(noteService.getNote(page));
     }
+    @GetMapping("{id}")
+    public ResponseEntity<ApiResponse<NoteResponse.Detail>> getDetail(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(noteService.getDetail(id));
+    }
 }
