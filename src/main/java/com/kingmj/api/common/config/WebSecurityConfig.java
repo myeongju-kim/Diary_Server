@@ -12,18 +12,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-  @Bean
-  public PasswordEncoder getPasswordEncoder(){
-    return new BCryptPasswordEncoder();
-  }
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-    return  http
-        .csrf().disable()
-        .authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v3/api-docs/**").permitAll()
-        .antMatchers(HttpMethod.POST, "/api/v1/accounts", "/api/v1/accounts/login", "/api/v1/accounts/logout").permitAll()
-        .and().build();
-  }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.csrf()
+                   .disable()
+                   .authorizeRequests()
+                   .antMatchers(HttpMethod.GET, "/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/v3/api-docs/**").permitAll()
+                   .antMatchers(HttpMethod.POST, "/api/v1/accounts", "/api/v1/accounts/login", "/api/v1/accounts/logout").permitAll()
+                   .and().build();
+    }
 
 }
