@@ -1,12 +1,13 @@
 package com.kingmj.api.account.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 @Getter
 public class LoginRequest {
 
-  private Integer type;
+    private int type;
 
-  private String answer;
+    private String answer;
 
 }

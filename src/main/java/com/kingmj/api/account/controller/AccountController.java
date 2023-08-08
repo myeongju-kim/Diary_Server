@@ -4,12 +4,10 @@ import com.kingmj.api.account.dto.LoginRequest;
 import com.kingmj.api.account.dto.LoginResponse;
 import com.kingmj.api.account.service.impl.AccountServiceImpl;
 import com.kingmj.api.common.code.ServerCode;
-import com.kingmj.api.common.dto.ApiResponse;
-import com.kingmj.api.common.dto.ApiResponseEntity;
+import com.kingmj.api.util.ApiResponseEntity;
 import com.kingmj.api.util.Auth;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
