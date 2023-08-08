@@ -11,9 +11,9 @@ public class NoteRequest {
 
         private String content;
 
-        private Integer weather;
+        private int weather;
 
-        private Integer mode;
+        private int mode;
 
     }
 

@@ -23,10 +23,11 @@ public class Note {
     @Column(length = 2000)
     private String content;
 
-    private Integer weather;
+    private int weather;
 
-    private Integer mood;
+    private int mood;
 
-    private LocalDateTime date;
+    @Builder.Default
+    private LocalDateTime date = LocalDateTime.now();
 
 }
