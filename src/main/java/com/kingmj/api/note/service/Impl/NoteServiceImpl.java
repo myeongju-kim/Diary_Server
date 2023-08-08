@@ -1,7 +1,5 @@
 package com.kingmj.api.note.service;
 
-import com.kingmj.api.common.code.ServerCode;
-import com.kingmj.api.common.dto.ApiResponse;
 import com.kingmj.api.note.dto.NoteRequest;
 import com.kingmj.api.note.dto.NoteResponse;
 import com.kingmj.api.note.entity.Note;
@@ -12,57 +10,55 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class NoteService {
+public class NoteServiceImpl implements NoteService {
 
     private final NoteRepository noteRepository;
 
+    @Override
     public void postNote(NoteRequest.Create data) {
         //save note
-        Note note = Note.builder()
-                        .title(data.getTitle())
-                        .content(data.getContent())
-                        .weather(data.getWeather())
-                        .mood(data.getMode())
-                        .date(LocalDateTime.now())
-                        .build();
-
-        noteRepository.save(note);
+        noteRepository.save(Note.builder()
+                                .title(data.getTitle())
+                                .content(data.getContent())
+                                .weather(data.getWeather())
+                                .mood(data.getMode())
+                                .build());
 
     }
 
+    @Override
     public List<NoteResponse.Load> getNote(Integer page) {
-
-        List<NoteResponse.Load> lists = new ArrayList<>();
         //pagination
         Pageable pageable = PageRequest.of(page, 6, Sort.by("date").descending());
         Page<Note> notes = noteRepository.findAll(pageable);
 
-        for (Note note : notes) {
-            lists.add(NoteResponse.Load.builder()
-                                       .id(note.getId())
-                                       .title(note.getTitle())
-                                       .date(note.getDate()
-                                                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-                                       .weather(note.getWeather())
-                                       .mode(note.getMood())
-                                       .build());
-        }
-
-        return lists;
+        return notes.stream()
+                    .map(note -> NoteResponse.Load.builder()
+                                                  .id(note.getId())
+                                                  .title(note.getTitle())
+                                                  .date(note.getDate()
+                                                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                                                  .weather(note.getWeather())
+                                                  .mode(note.getMood())
+                                                  .build())
+                    .collect(Collectors.toList());
 
     }
 
+    @Override
     public NoteResponse.Detail getDetail(Long id) {
 
-        Note note = noteRepository.findById(id).orElse(null);
+        Note note = noteRepository.findById(id).orElseThrow(()->new NotFoundException(""))
 
         return NoteResponse.Detail.builder()
                                   .date(note.getDate()
