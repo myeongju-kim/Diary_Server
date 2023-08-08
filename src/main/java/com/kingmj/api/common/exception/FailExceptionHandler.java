@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice(annotations = RestController.class)
 public class FailExceptionHandler {
 
+    @ExceptionHandler(BadRequestException.class)
+    public ApiResponseEntity<Void> badRequestHandle(BadRequestException e){
+        return ApiResponseEntity.error(HttpStatus.BAD_REQUEST, e.getServerCode());
+    }
+
     @ExceptionHandler(UnauthorizedException.class)
     public ApiResponseEntity<Void> unauthorizedHandle(UnauthorizedException e) {
         return ApiResponseEntity.error(HttpStatus.UNAUTHORIZED, e.getServerCode());
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public ApiResponseEntity<Void> badRequestHandle(BadRequestException e){
-        return ApiResponseEntity.error(HttpStatus.BAD_REQUEST, e.getServerCode());
+    @ExceptionHandler(NotFoundException.class)
+    public ApiResponseEntity<Void> badRequestHandle(NotFoundException e){
+        return ApiResponseEntity.error(HttpStatus.NOT_FOUND, e.getServerCode());
     }
 
     @ExceptionHandler(Exception.class)

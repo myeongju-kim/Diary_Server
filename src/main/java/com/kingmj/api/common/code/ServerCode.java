@@ -36,6 +36,9 @@ public enum ServerCode {
 
     INVALID_ACCESS("U004", "등록되지 않은 사용자입니다."),
 
+    // HTTP Status : 404 (Not Found)
+    NOT_FOUND_NOTE("N000", "삭제되었거나 없는 게시글 입니다."),
+
     // HTTP Status : 500 (Internal Server Error)
     INTERNAL_SERVER_ERROR("S000", "예상치 못한 서버 오류입니다.");
 
@@ -44,8 +47,8 @@ public enum ServerCode {
     private String message;
 
     ServerCode(String code, String message) {
-        this.code=code;
-        this.message=message;
+        this.code = code;
+        this.message = message;
     }
 
 }
