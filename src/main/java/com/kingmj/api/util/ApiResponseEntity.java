@@ -1,6 +1,7 @@
-package com.kingmj.api.common.dto;
+package com.kingmj.api.util;
 
 import com.kingmj.api.common.code.ServerCode;
+import com.kingmj.api.common.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
