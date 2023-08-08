@@ -5,7 +5,6 @@ This is the back-end repository of King Myeongju's employment journal, and the f
 - Java : 11
 - Spring boot : 2.7.10
 - Gradle-groovy
-- H2 : 2.1
 
 
 ### 📗 Built with
@@ -15,18 +14,17 @@ This is the back-end repository of King Myeongju's employment journal, and the f
 - Spring Web
 - Spring Data JPA
 - Lombok
-- H2 Database
+- MariaDB
 
 
 ## Roadmap
 - Account API
     - [x] Login
-    - [ ] Logout
-    - [x] JWT check
+    - [x] JWT Validation
 
 - Note API
     - [x] Create
-    - [X] Read
+    - [x] Read
     - [ ] Update
     - [ ] Delete
     
@@ -36,8 +34,8 @@ This is the back-end repository of King Myeongju's employment journal, and the f
     - [ ] English
     
 - Deploy
-    - [ ] EC2
-    - [ ] RDS
+    - [x] EC2
+    - [x] RDS
 
 
 
