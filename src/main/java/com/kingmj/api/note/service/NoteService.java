@@ -7,9 +7,14 @@ import java.util.List;
 
 public interface NoteService {
 
-    void postNote(NoteRequest.Create data);
+    void postNote(NoteRequest.Create noteRequest);
 
     List<NoteResponse.Load> getNote(Integer page);
 
     NoteResponse.Detail getDetail(Long id);
+
+    void updateNote(NoteRequest.Update noteRequest);
+
+    void deleteNote(Long id);
+
 }

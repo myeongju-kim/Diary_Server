@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,15 +30,15 @@ public class NoteServiceImpl implements NoteService {
     private final NoteRepository noteRepository;
 
     @Override
-    public void postNote(NoteRequest.Create data) {
+    @Transactional
+    public void postNote(NoteRequest.Create noteRequest) {
         //save note
         noteRepository.save(Note.builder()
-                                .title(data.getTitle())
-                                .content(data.getContent())
-                                .weather(data.getWeather())
-                                .mood(data.getMode())
+                                .title(noteRequest.getTitle())
+                                .content(noteRequest.getContent())
+                                .weather(noteRequest.getWeather())
+                                .mood(noteRequest.getMode())
                                 .build());
-
     }
 
     @Override
@@ -50,13 +51,12 @@ public class NoteServiceImpl implements NoteService {
                     .map(note -> NoteResponse.Load.builder()
                                                   .id(note.getId())
                                                   .title(note.getTitle())
-                                                  .date(note.getDate()
+                                                  .date(note.getInsertDate()
                                                             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                                                   .weather(note.getWeather())
                                                   .mode(note.getMood())
                                                   .build())
                     .collect(Collectors.toList());
-
     }
 
     @Override
@@ -65,11 +65,25 @@ public class NoteServiceImpl implements NoteService {
         Note note = noteRepository.findById(id).orElseThrow(() -> new NotFoundException(ServerCode.NOT_FOUND_NOTE));
 
         return NoteResponse.Detail.builder()
-                                  .date(note.getDate()
+                                  .date(note.getInsertDate()
                                             .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                                   .title(note.getTitle())
                                   .content(note.getContent())
                                   .build();
+    }
 
+    @Override
+    @Transactional
+    public void updateNote(NoteRequest.Update noteRequest) {
+
+        Note note = noteRepository.findById(noteRequest.getId()).orElseThrow(() -> new NotFoundException(ServerCode.NOT_FOUND_NOTE));
+        note.updateNote(noteRequest.getTitle(), noteRequest.getContent(), noteRequest.getWeather(), noteRequest.getMode());
+    }
+
+    @Override
+    public void deleteNote(Long id) {
+
+        Note note = noteRepository.findById(id).orElseThrow(() -> new NotFoundException(ServerCode.NOT_FOUND_NOTE));
+        note.deleteNote();
     }
 }
