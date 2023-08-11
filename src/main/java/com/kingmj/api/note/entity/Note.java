@@ -28,6 +28,26 @@ public class Note {
     private int mood;
 
     @Builder.Default
-    private LocalDateTime date = LocalDateTime.now();
+    private boolean isDeleted = false;
+
+    @Builder.Default
+    private LocalDateTime insertDate = LocalDateTime.now();
+
+    @Builder.Default
+    private LocalDateTime updateDate = LocalDateTime.now();
+
+    public void updateNote(String title, String content, int weather, int mood) {
+
+        this.title = title;
+        this.content = content;
+        this.weather = weather;
+        this.mood = mood;
+        this.updateDate = LocalDateTime.now();
+    }
+
+    public void deleteNote(){
+
+        this.isDeleted = true;
+    }
 
 }
