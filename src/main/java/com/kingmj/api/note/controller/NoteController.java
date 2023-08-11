@@ -1,37 +1,39 @@
 package com.kingmj.api.note.controller;
 
-import com.kingmj.api.common.dto.ApiResponse;
+import com.kingmj.api.common.code.ServerCode;
 import com.kingmj.api.note.dto.NoteRequest;
 import com.kingmj.api.note.dto.NoteResponse;
-import com.kingmj.api.note.service.NoteService;
+import com.kingmj.api.note.service.Impl.NoteServiceImpl;
+import com.kingmj.api.util.ApiResponseEntity;
 import com.kingmj.api.util.Auth;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/note")
+@RequiredArgsConstructor
 public class NoteController {
-    private final NoteService noteService;
-    public NoteController(NoteService noteService){
-        this.noteService=noteService;
-    }
-    @PostMapping("")
+
+    private final NoteServiceImpl noteService;
+
     @Auth
-    public ResponseEntity<ApiResponse<Void>> postNote(@RequestBody NoteRequest.Create data){
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(noteService.postNote(data));
+    @PostMapping("")
+    public ApiResponseEntity<Void> postNote(@RequestBody NoteRequest.Create data) {
+        noteService.postNote(data);
+        return ApiResponseEntity.success(HttpStatus.CREATED, ServerCode.POST_SUCCESS);
     }
+
     @GetMapping("")
-    public ResponseEntity<ApiResponse<List<NoteResponse.Load>>> getNote(@RequestParam(name="page") Integer page){
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(noteService.getNote(page));
+    public ApiResponseEntity<List<NoteResponse.Load>> getNote(@RequestParam(name = "page") Integer page) {
+        return ApiResponseEntity.success(HttpStatus.OK, ServerCode.LIST_SUCCESS, noteService.getNote(page));
     }
-    @GetMapping("{id}")
-    public ResponseEntity<ApiResponse<NoteResponse.Detail>> getDetail(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(noteService.getDetail(id));
+
+    @GetMapping("/{id}")
+    public ApiResponseEntity<NoteResponse.Detail> getDetail(@PathVariable Long id) {
+        return ApiResponseEntity.success(HttpStatus.OK, ServerCode.DETAIL_SUCCESS, noteService.getDetail(id));
     }
+
 }

@@ -14,12 +14,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Note {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
+
     private String title;
+
     @Column(length = 2000)
     private String content;
-    private Integer weather;
-    private Integer mood;
-    private LocalDateTime date;
+
+    private int weather;
+
+    private int mood;
+
+    @Builder.Default
+    private LocalDateTime date = LocalDateTime.now();
+
 }

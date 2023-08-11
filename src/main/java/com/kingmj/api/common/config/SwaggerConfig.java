@@ -9,17 +9,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-  @Bean
-  public GroupedOpenApi accountApi() {
-    return GroupedOpenApi.builder()
-        .group("계정 관련 API")
-        .pathsToMatch("/api/v1/accounts/**")
-        .build();
-  }
-  @Bean
-  public OpenAPI springOpenAPI(){
-    return new OpenAPI()
-        .info(new Info().title("KINGMJ DIARY")
-            .description("킹명주 일기장입니다."));
-  }
+    @Bean
+    public GroupedOpenApi accountApi() {
+        return GroupedOpenApi.builder()
+                             .group("계정 관련 API")
+                             .pathsToMatch("/api/v1/accounts/**")
+                             .build();
+    }
+
+    @Bean
+    public OpenAPI springOpenAPI() {
+        return new OpenAPI().info(new Info().title("KINGMJ DIARY")
+                                            .description("킹명주 일기장입니다."));
+    }
+
 }

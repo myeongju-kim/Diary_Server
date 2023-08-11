@@ -4,11 +4,11 @@ import com.kingmj.api.common.code.ServerCode;
 import lombok.Getter;
 
 @Getter
-public class UnauthorizedException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
 
     private ServerCode serverCode;
 
-    public UnauthorizedException(ServerCode serverCode) {
+    public NotFoundException(ServerCode serverCode) {
         this.serverCode = serverCode;
     }
 
